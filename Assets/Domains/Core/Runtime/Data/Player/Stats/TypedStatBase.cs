@@ -1,10 +1,10 @@
 namespace Core.Data.Player.Stats
 {
-    public abstract class StatGenericBase<T> : ITypedPlayerStat<T>
+    public abstract class TypedStatBase<T> : ITypedPlayerStat<T>
     {
         public T Value { get; protected set; }
 
-        protected StatGenericBase()
+        protected TypedStatBase()
         { }
         
         public abstract void UpdateValue(T changeValueOn);

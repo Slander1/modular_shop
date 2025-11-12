@@ -6,14 +6,13 @@ using Core.Utility;
 
 namespace Core.Data.Player
 {
-    // TODO: DataBase и наследоваться от него при необходимости
     public sealed class PlayerData : SingletonBase<PlayerData>
     {
         private readonly PlayerStatEventHub _eventHub = new();
 
         private readonly Dictionary<Type, IGameStatMarker> _dataStorage = new();
 
-        public T GetValue<TKey, T>() where TKey : class, ITypedPlayerStat<T>, new()
+        private T GetValue<TKey, T>() where TKey : class, ITypedPlayerStat<T>, new()
         {
             return EnsureStat<TKey, T>().Value;
         }

@@ -260,6 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scenesCatalog: {fileID: 11400000, guid: 0100f26963afa444dbc7872fa7c2ab43, type: 2}
+  defaultValues: {fileID: 11400000, guid: f1090cbe985f446438825fdd69d8284e, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
