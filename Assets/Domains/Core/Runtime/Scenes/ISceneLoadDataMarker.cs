@@ -1,6 +1,6 @@
 namespace Core.Scenes
 {
-    public interface ISceneLoadData
+    public interface ISceneLoadDataMarker
     {
         
     }

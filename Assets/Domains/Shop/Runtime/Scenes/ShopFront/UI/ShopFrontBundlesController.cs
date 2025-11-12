@@ -11,10 +11,12 @@ namespace Shop.Scenes.ShopFront.UI
         [SerializeField] private ShopBundle shopBundle;
         
         private List<ShopBundle> _bundles;
+        private ShopFrontScenesAdapter _scenesAdapter;
         
-        public void Construct(BundlesData bundles)
+        public void Construct(BundlesData bundles, ShopFrontScenesAdapter scenesAdapter)
         {
             _bundles = BundlesCreator.CreateAndInitBundles(bundlesContainer, shopBundle, bundles);
+            _scenesAdapter = scenesAdapter;
             SubscribeOnBundleEvents();
         }
 
@@ -47,9 +49,9 @@ namespace Shop.Scenes.ShopFront.UI
             }
         }
         
-        private void BundleOnInfoButtonClicked()
+        private void BundleOnInfoButtonClicked(BundleData bundleData)
         {
-            
+            _scenesAdapter.OnBundleInfoClick(bundleData);
         }
         
         private void BundleOnBuyButtonClicked()

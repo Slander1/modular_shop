@@ -9,6 +9,8 @@ namespace Shop.Scenes.ShopFront
     {
         [SerializeField] private ShopFrontBundlesController shopFrontBundlesController;
         [SerializeField] private BundlesData bundles;
+        
+        private ShopFrontScenesAdapter _scenesAdapter;
 
         #region === Unity Events ===
 
@@ -20,12 +22,13 @@ namespace Shop.Scenes.ShopFront
         #endregion === Unity Events ===
 
         
-        public override void Construct(ISceneLoadData data)
+        public override void Construct(ISceneLoadDataMarker dataMarker)
         { }
 
         private void Initialize()
         {
-            shopFrontBundlesController.Construct(bundles);
+            _scenesAdapter = new ShopFrontScenesAdapter(ScenesCoordinator.Instance);
+            shopFrontBundlesController.Construct(bundles, _scenesAdapter);
         }
     }
 }

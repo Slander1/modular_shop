@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Shop.Scenes.ShopFront.UI
 {
+    // ReSharper disable once ClassNeverInstantiated.Global
     public sealed class BundlesCreator
     {
         public static List<ShopBundle> CreateAndInitBundles(Transform bundlesContainer, ShopBundle shopBundlePrefab, BundlesData bundleData)

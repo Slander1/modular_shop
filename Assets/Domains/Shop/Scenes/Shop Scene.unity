@@ -1007,7 +1007,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d51fec9d4c964dac9999f9b00c0f90c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shopFrontBundlesController: {fileID: 1018130816}
+  shopFrontBundlesController: {fileID: 1557648013}
   bundles: {fileID: 11400000, guid: 937a0de3bb8c04bfcad97bfe126666d1, type: 2}
 --- !u!4 &657684776
 Transform:
@@ -1975,7 +1975,6 @@ GameObject:
   - component: {fileID: 1018130815}
   - component: {fileID: 1018130814}
   - component: {fileID: 1018130813}
-  - component: {fileID: 1018130816}
   m_Layer: 5
   m_Name: Scroll View
   m_TagString: Untagged
@@ -2071,20 +2070,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1018130811}
   m_CullTransparentMesh: 1
---- !u!114 &1018130816
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1018130811}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98ecb543655147bdbe63d37884950e5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bundlesContainer: {fileID: 408390493}
-  shopBundle: {fileID: 5470941278626431212, guid: 626ff005b2bc343a698ad623c0e387b2, type: 3}
 --- !u!1 &1451878550
 GameObject:
   m_ObjectHideFlags: 0
@@ -2319,8 +2304,9 @@ GameObject:
   - component: {fileID: 1557648009}
   - component: {fileID: 1557648012}
   - component: {fileID: 1557648011}
+  - component: {fileID: 1557648013}
   m_Layer: 5
-  m_Name: Shop Front Panel Parent
+  m_Name: Shop Front Panel Parent And Script
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2384,6 +2370,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1557648008}
   m_CullTransparentMesh: 1
+--- !u!114 &1557648013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1557648008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98ecb543655147bdbe63d37884950e5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bundlesContainer: {fileID: 408390493}
+  shopBundle: {fileID: 5470941278626431212, guid: 626ff005b2bc343a698ad623c0e387b2, type: 3}
 --- !u!1 &1705999102
 GameObject:
   m_ObjectHideFlags: 0

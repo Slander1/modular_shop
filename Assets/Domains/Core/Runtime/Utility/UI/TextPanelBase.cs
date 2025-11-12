@@ -12,6 +12,7 @@ namespace Core.Utility.UI
         {
             if (string.IsNullOrEmpty(text))
                 throw new ArgumentException("Text cannot be null or empty");
+            
             textField.text = text;
         }
     }

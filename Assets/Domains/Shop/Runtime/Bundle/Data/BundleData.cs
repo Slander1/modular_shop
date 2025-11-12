@@ -1,6 +1,7 @@
 using Core.Data.Bundle.BundleBrick.ChangeData;
 using Core.Data.Bundle.BundleBrick.Cost;
 using Core.Data.Bundle.BundleBrick.Reward;
+using Core.Scenes;
 using UnityEngine;
 
 namespace Shop.Bundle.Data
@@ -9,7 +10,7 @@ namespace Shop.Bundle.Data
         menuName = "Shop/Bundle Data",
         fileName = "BundleData",
         order = 0)]
-    public class BundleData : ScriptableObject
+    public class BundleData : ScriptableObject, ISceneLoadDataMarker
     {
         [Header("UI")]
         [SerializeField] public string bundleTitile;

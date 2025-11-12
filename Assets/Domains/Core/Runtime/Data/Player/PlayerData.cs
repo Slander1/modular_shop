@@ -5,8 +5,11 @@ using Core.Utility;
 
 namespace Core.Data.Player
 {
+    //TODO : DataBase и наследоваться от него
     public sealed class PlayerData : SingletonBase<PlayerData>
     {
+        //TODO : передача лямда метода и подписка каждого
+        
         public event Action DataChanged
         {
             add

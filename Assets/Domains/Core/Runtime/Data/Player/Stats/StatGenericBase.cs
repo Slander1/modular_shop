@@ -4,6 +4,7 @@ namespace Core.Data.Player.Stats
     {
         public abstract T DefaultValue { get; }
 
+        //TODO : 
         public T CurrentValue { get; protected set; }
 
         protected StatGenericBase()

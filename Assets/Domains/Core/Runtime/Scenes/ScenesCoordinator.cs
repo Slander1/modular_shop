@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Core.Scenes.Data;
 using Core.Utility;
@@ -26,62 +25,68 @@ namespace Core.Scenes
             }
         }
 
+        public SceneCatalogInDomain GetSceneCatalogInDomain(Type sceneCatalogType)
+        {
+            if (!_catalogs.TryGetValue(sceneCatalogType, out var domain))
+            {
+                throw new ArgumentException($"dont have catalog {sceneCatalogType}");
+            }
+            
+            return domain;
+        }
+
         public UniTask LoadStartSceneAsync()
         {
             var sceneRef = PickStartup();
             return LoadSceneAsync(sceneRef.SceneName);
         }
         
-        public async UniTask LoadSceneAsync(string sceneName, LoadSceneMode mode = LoadSceneMode.Single)
+        public async UniTask NavigateAsync(NavigationRequest request)
         {
-            var loadOp = SceneManager.LoadSceneAsync(sceneName, mode);
-            await loadOp.ToUniTask();
-        }
-
-        public async UniTask LoadSceneAsync(int sceneIndex, LoadSceneMode mode = LoadSceneMode.Single)
-        {
-            var loadOp = SceneManager.LoadSceneAsync(sceneIndex, mode);
-            await loadOp.ToUniTask();
-        }
-
-        public async UniTask LoadAdditiveAsync(string sceneName)
-        {
-            var loadOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-            await loadOp.ToUniTask();
-        }
-
-        public async UniTask LoadAdditiveAsync(int sceneIndex)
-        {
-            var loadOp = SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive);
-            await loadOp.ToUniTask();
-        }
-
-        public async UniTask UnloadSceneAsync(string sceneName)
-        {
-            var scene = SceneManager.GetSceneByName(sceneName);
-            if (!scene.isLoaded)
-                return;
-
-            var unloadOp = SceneManager.UnloadSceneAsync(scene);
-            await unloadOp.ToUniTask();
-        }
-
-        public async UniTask UnloadSceneAsync(int sceneIndex)
-        {
-            var scene = SceneManager.GetSceneByBuildIndex(sceneIndex);
-            if (!scene.isLoaded)
-                return;
-
-            var unloadOp = SceneManager.UnloadSceneAsync(scene);
-            await unloadOp.ToUniTask();
+            var sceneCatalog = _catalogs[request.CatalogType];
+            var sceneRef = sceneCatalog.scenes.First(item => item.SceneName == request.SceneName);
+            if (request.Data == null)
+            {
+                await LoadSceneAsync(sceneRef.SceneName);
+            }
+            else
+            {
+                await LoadSceneAsync(sceneRef.SceneName, request.Data);
+            }
         }
         
+        private async UniTask LoadSceneAsync(string sceneName)
+        {
+            var loadOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+            await loadOp.ToUniTask();
+        }
         
-        /// <summary>
-        /// Логика координатора заложена простейшая, не продуманная,
-        /// потому что согласно ТЗ пункта такого нет.
-        /// </summary>
-        /// <returns></returns>
+        private async UniTask LoadSceneAsync(string sceneName, ISceneLoadDataMarker sceneLoadData)
+        {
+            var loadOp = SceneManager.LoadSceneAsync(sceneName,  LoadSceneMode.Single);
+            await loadOp.ToUniTask();
+            var loadedScene = SceneManager.GetSceneByName(sceneName);
+            var gameScene = FindGameSceneObj(loadedScene);
+            gameScene.Construct(sceneLoadData);
+        }
+        
+        public static GameScene FindGameSceneObj(Scene scene, bool includeInactive = false)
+        {
+            if (!scene.isLoaded)
+                throw new InvalidOperationException($"Scene '{scene.name}' is not loaded.");
+
+            var rootObjects = scene.GetRootGameObjects();
+
+            var target = rootObjects
+                .SelectMany(o => o.GetComponentsInChildren<GameScene>(includeInactive))
+                .FirstOrDefault();
+
+            if (target == null)
+                throw new ArgumentException($"Component of type {nameof(GameScene)} not found in scene '{scene.name}'.");
+
+            return target;
+        }
+        
         private SceneReference PickStartup()
         {
             if (_catalogs.Count == 0) throw new ArgumentException("Catalogs have not been constructed");
