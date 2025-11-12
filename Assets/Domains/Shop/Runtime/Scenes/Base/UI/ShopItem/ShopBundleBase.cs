@@ -8,15 +8,13 @@ namespace Shop.Scenes.Base.UI.ShopItem
 {
     public abstract class ShopBundleBase : MonoBehaviour
     {
-        public event Action<BundleData> BuyButtonClicked;
-        
         [SerializeField] protected BuyEventButton buyButton;
         [SerializeField] protected BundleTextHeader textPanelBase;
 
         protected BundleData BundleData;
+        protected bool IsServerPurchaseAwait;
 
         private bool _isSubscribed;
-        private bool _isServerPurchaseAwait;
         
         public void Construct(BundleData bundleData)
         {
@@ -49,7 +47,7 @@ namespace Shop.Scenes.Base.UI.ShopItem
 
         public void OnServerPurchaseStateChange(bool isActivePurchase)
         {
-            _isServerPurchaseAwait = isActivePurchase;
+            IsServerPurchaseAwait = isActivePurchase;
             
             if (isActivePurchase)
             {
@@ -61,9 +59,11 @@ namespace Shop.Scenes.Base.UI.ShopItem
             }
         }
         
+        protected abstract void BuyButtonOnClicked();
+        
         private void CheckPurchaseAvailability()
         {
-            if (_isServerPurchaseAwait) return;
+            if (IsServerPurchaseAwait) return;
             buyButton.SetState(BundleData.CanPurchase());
         }
         
@@ -81,10 +81,6 @@ namespace Shop.Scenes.Base.UI.ShopItem
             BundleData.CostPlayerDataChanged += BundleDataOnCostPlayerDataChanged;
             CheckPurchaseAvailability();
         }
-        
-        private void BuyButtonOnClicked()
-        {
-            BuyButtonClicked?.Invoke(BundleData);
-        }
+
     }
 }
