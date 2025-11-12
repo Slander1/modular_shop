@@ -6,9 +6,18 @@ namespace Core.Data.Bundle.BundleBrick.Cost
     public abstract class CostBrickBase : BrickBase
     {
         public event Action PlayerDataChanged;
-        public abstract bool CanPurchase(PlayerData playerData);
-        public abstract void Subscribe(PlayerData playerData);
+        
+        protected IDataStorage CashedDataStorage;
+
+        public void Construct(IDataStorage storage)
+        {
+            CashedDataStorage = storage;
+        }
+        
+        public abstract bool CanPurchase();
+        public abstract void Subscribe();
         public abstract void Unsubscribe();
+        public abstract void ExecutePurchase();
 
         protected void CallPlayerDataChanged()
         {

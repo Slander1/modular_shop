@@ -16,16 +16,16 @@ namespace Core.Utility.UI
         protected override void OnEnable()
         {
             base.OnEnable();
-            addStatButton.Clicked += AddGoldButtonOnClicked;
+            addStatButton.Clicked += OnClickedAddButton;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
-            addStatButton.Clicked -= AddGoldButtonOnClicked;
+            addStatButton.Clicked -= OnClickedAddButton;
         }
         
-        private void AddGoldButtonOnClicked()
+        private void OnClickedAddButton()
         {
             Data.UpdateValue<TKey, TValue>(addAmountBuyClick);
         }

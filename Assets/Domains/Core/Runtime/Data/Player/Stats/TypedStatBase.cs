@@ -13,7 +13,5 @@ namespace Core.Data.Player.Stats
         {
             Value = newValue;
         }
-
-        public abstract bool IsSatisfied(T newValue);
     }
 }

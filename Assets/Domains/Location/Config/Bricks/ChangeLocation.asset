@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b96408c6a7cf4b878f6ad255e41462bb, type: 3}
-  m_Name: ChangeLocationToForest
+  m_Script: {fileID: 11500000, guid: b051ba5afe0745aa8f31b5b9fc467574, type: 3}
+  m_Name: ChangeLocation
   m_EditorClassIdentifier: 
-  newData: forest
+  locationName: lake

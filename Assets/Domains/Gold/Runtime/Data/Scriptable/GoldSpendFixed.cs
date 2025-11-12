@@ -5,16 +5,21 @@ using UnityEngine;
 namespace Gold.Data.Scriptable
 {
     [CreateAssetMenu(menuName = "Stats/Gold/Spend Fixed", fileName = "GoldSpendFixed")]
-    public sealed class GoldSpendFixed: TypedCostBrickBase<GoldAmount, int>
+    public sealed class GoldSpendFixed : TypedCostBrickBase<GoldAmount, int>
     {
         public override int Amount => goldToSpend;
-
+        
         [SerializeField] private int goldToSpend;
         
-        public override bool CanPurchase(PlayerData playerData)
+        public override bool CanPurchase()
         {
-            var value = playerData.GetValue<GoldAmount, int>();
+            var value = PlayerData.Instance.GetValue<GoldAmount, int>();
             return value >= Amount;
+        }
+
+        public override void ExecutePurchase()
+        {
+            PlayerData.Instance.UpdateValue<GoldAmount, int>(-1 * Amount);
         }
     }
 }

@@ -10,10 +10,5 @@ namespace Core.Data.Player.Stats.Variants
             if (updatedValue < 0) throw new ArgumentException("Value must be greater than or equal to 0 after UpdateValue");
             Value += changeValueOn;
         }
-
-        public override bool IsSatisfied(int value)
-        {
-            return Value >= value;
-        }
     }
 }

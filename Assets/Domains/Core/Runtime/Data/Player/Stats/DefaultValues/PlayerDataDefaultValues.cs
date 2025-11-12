@@ -8,9 +8,9 @@ namespace Core.Data.Player.Stats.DefaultValues
     {
         [SerializeField] private UpdatableStatKey[] statKeys;
 
-        public void FillPlayerDataDefaultValues(PlayerData playerData)
+        public void FillPlayerDataDefaultValues(IDataStorage dataStorage)
         {
-            foreach (var key in statKeys) key.UpdatePlayerData(playerData);
+            foreach (var key in statKeys) key.UpdatePlayerData();
         }
     }
 }

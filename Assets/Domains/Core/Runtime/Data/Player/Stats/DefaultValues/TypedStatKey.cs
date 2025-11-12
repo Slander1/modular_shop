@@ -1,5 +1,4 @@
 using System;
-using Core.Data.Base;
 
 namespace Core.Data.Player.Stats.DefaultValues
 {
@@ -8,9 +7,9 @@ namespace Core.Data.Player.Stats.DefaultValues
         public override Type StatType => typeof(TKey);
         public abstract T Value { get; }
 
-        public override void UpdatePlayerData(PlayerData playerData)
+        public override void UpdatePlayerData()
         {
-            playerData.ReplaceValue<TKey, T>(Value);
+            PlayerData.Instance.ReplaceValue<TKey, T>(Value);
         }
     }
 }

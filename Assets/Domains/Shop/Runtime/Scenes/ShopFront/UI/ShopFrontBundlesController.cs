@@ -1,5 +1,9 @@
 using System.Collections.Generic;
+using System.Threading;
+using Core.Network;
+using Cysharp.Threading.Tasks;
 using Shop.Bundle.Data;
+using Shop.Scenes.Base;
 using Shop.Scenes.ShopFront.ShopItem;
 using UnityEngine;
 
@@ -12,6 +16,8 @@ namespace Shop.Scenes.ShopFront.UI
         
         private List<ShopBundle> _bundles;
         private ShopFrontScenesAdapter _scenesAdapter;
+
+        private readonly ServerApiAdapter _serverApi = new();
         
         public void Construct(BundlesData bundles, ShopFrontScenesAdapter scenesAdapter)
         {
@@ -34,7 +40,7 @@ namespace Shop.Scenes.ShopFront.UI
             foreach (var bundle in _bundles)
             {
                 bundle.InfoButtonClicked += BundleOnInfoButtonClicked;
-                // bundle.BuyButtonClicked += BundleOnBuyButtonClicked;
+                bundle.BuyButtonClicked += BundleOnBuyButtonClicked;
             }
         }
 
@@ -45,18 +51,35 @@ namespace Shop.Scenes.ShopFront.UI
             foreach (var bundle in _bundles)
             {
                 bundle.InfoButtonClicked -= BundleOnInfoButtonClicked;
-                // bundle.BuyButtonClicked -= BundleOnBuyButtonClicked;
+                bundle.BuyButtonClicked -= BundleOnBuyButtonClicked;
             }
         }
         
+
         private void BundleOnInfoButtonClicked(BundleData bundleData)
         {
             _scenesAdapter.OnBundleInfoClick(bundleData);
         }
         
-        private void BundleOnBuyButtonClicked()
+        private void BundleOnBuyButtonClicked(BundleData bundleData)
         {
+            InitializePurchase(bundleData).Forget();
+        }
+
+        private async UniTaskVoid InitializePurchase(BundleData bundleData)
+        {
+            foreach (var bundle in _bundles)
+            {
+                bundle.OnServerPurchaseStateChange(true);
+            }
+
+            await _serverApi.InitializePurchase(bundleData);
+            bundleData.Purchase();
             
+            foreach (var bundle in _bundles)
+            {
+                bundle.OnServerPurchaseStateChange(false);
+            }
         }
     }
 }

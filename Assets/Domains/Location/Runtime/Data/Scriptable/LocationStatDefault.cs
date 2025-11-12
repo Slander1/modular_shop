@@ -1,3 +1,4 @@
+using Core.Data.Player;
 using UnityEngine;
 
 namespace Location.Data.Scriptable
@@ -9,5 +10,9 @@ namespace Location.Data.Scriptable
         public override string Value => defaultLocation;
         [SerializeField] private string defaultLocation;
         
+        public override void UpdatePlayerData()
+        {
+            PlayerData.Instance.ReplaceValue<Location, string>(Value);
+        }
     }
 }

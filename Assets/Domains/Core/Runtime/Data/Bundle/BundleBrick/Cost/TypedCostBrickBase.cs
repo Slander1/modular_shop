@@ -7,23 +7,17 @@ namespace Core.Data.Bundle.BundleBrick.Cost
     [Serializable]
     public abstract class TypedCostBrickBase<TKey, T> : CostBrickBase where TKey : class, ITypedPlayerStat<T> , new()
     { 
-        // public event Action PlayerDataChanged;
-        
         public override Type StatType => typeof(TKey);
         public abstract T Amount { get; }
         
-        private PlayerData _playerData;
-
-        public override void Subscribe(PlayerData playerData)
+        public override void Subscribe()
         {
-            _playerData = playerData;
-            _playerData.Subscribe<TKey, T>(OnPlayerStatChanged);
+            CashedDataStorage.Subscribe<TKey, T>(OnPlayerStatChanged);
         }
         
         public override void Unsubscribe()
         {
-            _playerData?.Unsubscribe<TKey, T>(OnPlayerStatChanged);
-            _playerData = null;
+            CashedDataStorage.Unsubscribe<TKey, T>(OnPlayerStatChanged);
         }
         
         protected void OnPlayerStatChanged(T newValue)

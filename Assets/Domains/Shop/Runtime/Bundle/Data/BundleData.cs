@@ -32,19 +32,46 @@ namespace Shop.Bundle.Data
         [Header("Changable Data — что меняется после покупки")]
         [SerializeField]  public DataChangeableBrickBase[] changeableBricks;
 
+        public void Construct()
+        {
+            var dataStorage = PlayerData.Instance;
+            
+            foreach (var brick in costBricks)
+            {
+                brick.Construct(dataStorage);
+            }
+        }
+        
         public bool CanPurchase()
         {
-            var playerData = PlayerData.Instance;
-            return costBricks.All(brick => brick.CanPurchase(playerData));
+            return costBricks.All(brick => brick.CanPurchase());
+        }
+
+        public void Purchase()
+        {
+            if (!CanPurchase()) throw new ArgumentException("dont enough resources");
+            
+            foreach (var costBrickBase in costBricks)
+            {
+                costBrickBase.ExecutePurchase();
+            }
+            
+            foreach (var rewardBrick in rewardBricks)
+            {
+                rewardBrick.GiveReward();
+            }
+            
+            foreach (var changeableBrickBase in changeableBricks)
+            {
+                changeableBrickBase.ChangeData();
+            }
         }
             
         public void SubscribeOnPlayerDataChange()
         {
-            var playerData = PlayerData.Instance;
-            
             foreach (var brick in costBricks)
             {
-                brick.Subscribe(playerData);
+                brick.Subscribe();
                 brick.PlayerDataChanged += CostBrickOnPlayerDataChanged;
             }
         }
@@ -57,7 +84,6 @@ namespace Shop.Bundle.Data
                 brick.PlayerDataChanged -= CostBrickOnPlayerDataChanged;
             }
         }
-        
         
         private void CostBrickOnPlayerDataChanged()
         {

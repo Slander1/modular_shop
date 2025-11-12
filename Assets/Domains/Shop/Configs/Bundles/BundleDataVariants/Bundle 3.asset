@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48a89d7b7d8d4678bb76cfe0566f9012, type: 3}
   m_Name: Bundle 3
   m_EditorClassIdentifier: 
-  bundleTitile: "\u0422\u0440\u0430\u0442\u0438\u043C \u0433\u043E\u043B\u0434\u0443
-    , \u043F\u043E\u043B\u0443\u0447\u0430\u0435\u043C \u0433\u043E\u043B\u0434\u0443"
+  bundleTitile: "\u0422\u0440\u0430\u0442\u0438\u0442\u0438\u043C 1000 \u0433\u043E\u043B\u0434\u044B
+    , \u043F\u0435\u0440\u0435\u0445\u043E\u0434\u0438\u043C \u043D\u0430  \u043B\u043E\u043A\u0430\u0446\u0438\u044E
+    Lake"
   costBricks:
-  - {fileID: 11400000, guid: 1720da7f24e28467e85bcf84d9e07c73, type: 2}
-  rewardBricks:
-  - {fileID: 11400000, guid: 6c097e0a4ee254808802f970be057803, type: 2}
-  changeableBricks: []
+  - {fileID: 11400000, guid: dff7f6047d8a2402387774051a1bf796, type: 2}
+  rewardBricks: []
+  changeableBricks:
+  - {fileID: 11400000, guid: f70b4fb841c9e4e7fb9d98fc86e25112, type: 2}

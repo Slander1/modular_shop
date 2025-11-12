@@ -8,11 +8,7 @@ namespace Shop.Scenes.Base.UI.ShopItem
 {
     public abstract class ShopBundleBase : MonoBehaviour
     {
-        // public event Action BuyButtonClicked
-        // {
-        //     add => buyButton.Clicked += value;
-        //     remove => buyButton.Clicked -= value;
-        // }
+        public event Action<BundleData> BuyButtonClicked;
         
         [SerializeField] protected BuyEventButton buyButton;
         [SerializeField] protected BundleTextHeader textPanelBase;
@@ -20,10 +16,12 @@ namespace Shop.Scenes.Base.UI.ShopItem
         protected BundleData BundleData;
 
         private bool _isSubscribed;
+        private bool _isServerPurchaseAwait;
         
         public void Construct(BundleData bundleData)
         {
             BundleData = bundleData;
+            BundleData.Construct();
             textPanelBase.UpdateText(bundleData.bundleTitile);
             
             InitializeData();
@@ -33,9 +31,47 @@ namespace Shop.Scenes.Base.UI.ShopItem
 
         protected virtual void OnEnable()
         {
+            buyButton.Clicked += BuyButtonOnClicked;
             InitializeData();
         }
 
+        protected virtual void OnDisable()
+        {
+            buyButton.Clicked -= BuyButtonOnClicked;
+            
+            BundleData.UnsubscribeOnPlayerDataChange();
+            BundleData.CostPlayerDataChanged -= BundleDataOnCostPlayerDataChanged;
+
+            _isSubscribed = false;
+        }
+
+        #endregion
+
+        public void OnServerPurchaseStateChange(bool isActivePurchase)
+        {
+            _isServerPurchaseAwait = isActivePurchase;
+            
+            if (isActivePurchase)
+            {
+                buyButton.OnServerPurchaseStateChange(true);
+            }
+            else
+            {
+                CheckPurchaseAvailability();
+            }
+        }
+        
+        private void CheckPurchaseAvailability()
+        {
+            if (_isServerPurchaseAwait) return;
+            buyButton.SetState(BundleData.CanPurchase());
+        }
+        
+        private void BundleDataOnCostPlayerDataChanged()
+        {
+            CheckPurchaseAvailability();
+        }
+        
         private void InitializeData()
         {
             if (_isSubscribed || BundleData == null) return;
@@ -45,25 +81,10 @@ namespace Shop.Scenes.Base.UI.ShopItem
             BundleData.CostPlayerDataChanged += BundleDataOnCostPlayerDataChanged;
             CheckPurchaseAvailability();
         }
-
-        protected virtual void OnDisable()
-        {
-            BundleData.UnsubscribeOnPlayerDataChange();
-            BundleData.CostPlayerDataChanged -= BundleDataOnCostPlayerDataChanged;
-
-            _isSubscribed = false;
-        }
-
-        #endregion
-
-        private void CheckPurchaseAvailability()
-        {
-            buyButton.SetState(BundleData.CanPurchase());
-        }
         
-        private void BundleDataOnCostPlayerDataChanged()
+        private void BuyButtonOnClicked()
         {
-            CheckPurchaseAvailability();
+            BuyButtonClicked?.Invoke(BundleData);
         }
     }
 }

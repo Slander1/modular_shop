@@ -15,6 +15,7 @@ namespace Shop.Scenes.ShopFront.UI
             foreach (var bundle in bundleData.bundles)
             {
                 var createdBundle = Object.Instantiate(shopBundlePrefab, bundlesContainer);
+
                 createdBundle.Construct(bundle);
                 bundles.Add(createdBundle);
             }

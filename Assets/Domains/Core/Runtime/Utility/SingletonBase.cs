@@ -1,6 +1,6 @@
 namespace Core.Utility
 {
-    public class SingletonBase<T> where T : SingletonBase<T>, new()
+    public class SingletonBase<T> where T : class, new()
     {
         private static T _instance = new T();
         
