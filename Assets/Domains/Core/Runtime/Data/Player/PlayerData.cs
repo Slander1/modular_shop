@@ -12,33 +12,19 @@ namespace Core.Data.Player
 
         private readonly Dictionary<Type, IGameStatMarker> _dataStorage = new();
 
-        private T GetValue<TKey, T>() where TKey : class, ITypedPlayerStat<T>, new()
+        public T GetValue<TKey, T>() where TKey : class, ITypedPlayerStat<T>, new()
         {
             return EnsureStat<TKey, T>().Value;
         }
 
-        public bool TryGetValue<TKey, T>(out T value)
-            where TKey : class, ITypedPlayerStat<T>, new()
-        {
-            if (_dataStorage.TryGetValue(typeof(TKey), out var boxed))
-            {
-                value = ((ITypedPlayerStat<T>)boxed).Value;
-                return true;
-            }
-            value = default!;
-            return false;
-        }
-
-        public void ReplaceValue<TKey, T>(T newValue)
-            where TKey : class, ITypedPlayerStat<T>, new()
+        public void ReplaceValue<TKey, T>(T newValue) where TKey : class, ITypedPlayerStat<T>, new()
         {
             var stat = EnsureStat<TKey, T>();
             stat.ReplaceValue(newValue);
             _eventHub.Notify<TKey, T>(stat.Value);
         }
         
-        public void UpdateValue<TKey, T>(T updateOn)
-            where TKey : class, ITypedPlayerStat<T>, new()
+        public void UpdateValue<TKey, T>(T updateOn) where TKey : class, ITypedPlayerStat<T>, new()
         {
             var stat = EnsureStat<TKey, T>();
             stat.UpdateValue(updateOn);

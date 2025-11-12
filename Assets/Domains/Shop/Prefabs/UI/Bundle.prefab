@@ -89,6 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09a4be2ba6bf41d09e6d0eb6fd4edb2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonText: {fileID: 789421244217643452}
 --- !u!1 &417987781687740741
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,9 +341,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a104ec4da8904f04ae4dbfef104d84d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  infoButton: {fileID: 76729972146087726}
   buyButton: {fileID: 5438778785328992738}
   textPanelBase: {fileID: 8053213544712995862}
+  infoButton: {fileID: 76729972146087726}
 --- !u!1 &4598011151866389111
 GameObject:
   m_ObjectHideFlags: 0

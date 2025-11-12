@@ -1,10 +1,10 @@
+using Core.Data.Player;
 using UnityEngine;
 
-namespace Core.Data.Player.Stats.DefaultValues
+namespace Core.Data.Base
 {
     public abstract class StatKey : ScriptableObject
     {
         public abstract System.Type StatType { get; }
-        public abstract void UpdatePlayerData(PlayerData playerData);
     }
 }

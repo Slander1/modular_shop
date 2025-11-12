@@ -2,8 +2,6 @@ using System;
 using Shop.Bundle.Data;
 using Shop.Scenes.Base.UI.ShopItem;
 using Shop.Scenes.ShopFront.ShopItem.Buttons;
-using Shop.Scenes.ShopFront.ShopItem.Text;
-using Shop.UI.ShopItem.Buttons;
 using UnityEngine;
 
 namespace Shop.Scenes.ShopFront.ShopItem
@@ -16,13 +14,15 @@ namespace Shop.Scenes.ShopFront.ShopItem
 
         #region === Unity Events ===
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             infoButton.Clicked += InfoButtonOnClicked;
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
             infoButton.Clicked -= InfoButtonOnClicked;
         }
 

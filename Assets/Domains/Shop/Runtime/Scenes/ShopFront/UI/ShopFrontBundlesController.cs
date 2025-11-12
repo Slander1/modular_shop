@@ -34,7 +34,7 @@ namespace Shop.Scenes.ShopFront.UI
             foreach (var bundle in _bundles)
             {
                 bundle.InfoButtonClicked += BundleOnInfoButtonClicked;
-                bundle.BuyButtonClicked += BundleOnBuyButtonClicked;
+                // bundle.BuyButtonClicked += BundleOnBuyButtonClicked;
             }
         }
 
@@ -45,7 +45,7 @@ namespace Shop.Scenes.ShopFront.UI
             foreach (var bundle in _bundles)
             {
                 bundle.InfoButtonClicked -= BundleOnInfoButtonClicked;
-                bundle.BuyButtonClicked -= BundleOnBuyButtonClicked;
+                // bundle.BuyButtonClicked -= BundleOnBuyButtonClicked;
             }
         }
         

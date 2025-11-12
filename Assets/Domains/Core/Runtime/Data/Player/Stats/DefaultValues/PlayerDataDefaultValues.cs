@@ -1,3 +1,4 @@
+using Core.Data.Base;
 using UnityEngine;
 
 namespace Core.Data.Player.Stats.DefaultValues
@@ -5,7 +6,7 @@ namespace Core.Data.Player.Stats.DefaultValues
     [CreateAssetMenu(menuName = "Stats/Core/Default Values", fileName = "StatsDefault")]
     public class PlayerDataDefaultValues : ScriptableObject
     {
-        [SerializeField] private StatKey[] statKeys;
+        [SerializeField] private UpdatableStatKey[] statKeys;
 
         public void FillPlayerDataDefaultValues(PlayerData playerData)
         {

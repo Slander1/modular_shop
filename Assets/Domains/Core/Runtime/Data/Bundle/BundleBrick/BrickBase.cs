@@ -1,10 +1,7 @@
-using System;
-using UnityEngine;
+using Core.Data.Base;
 
 namespace Core.Data.Bundle.BundleBrick
 {
-    public abstract class BrickBase : ScriptableObject
-    {
-        public abstract Type StatType { get; }
-    }
+    public abstract class BrickBase : StatKey
+    { }
 }

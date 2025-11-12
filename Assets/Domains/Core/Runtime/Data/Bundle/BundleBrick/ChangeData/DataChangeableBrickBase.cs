@@ -1,5 +1,5 @@
 namespace Core.Data.Bundle.BundleBrick.ChangeData
 {
-    public abstract class DataChangeableBrickBase : BrickBase, IDataChangeableBrick
+    public abstract class DataChangeableBrickBase : BrickBase
     { }
 }
