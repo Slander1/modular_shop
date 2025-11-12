@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Shop.UI.ShopFront
+namespace Shop.Scenes.ShopFront.UI
 {
     public sealed class ShopFrontView : MonoBehaviour
     {

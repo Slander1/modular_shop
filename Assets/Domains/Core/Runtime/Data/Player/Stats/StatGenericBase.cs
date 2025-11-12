@@ -17,7 +17,9 @@ namespace Core.Data.Player.Stats
         {
             CurrentValue = newValue;
         }
-        
+
+        public abstract bool IsSatisfied(T newValue);
+
         //TODO : важная деталь
         /// <summary>
         /// Тут должна быть переопределенная в своем .asmdef логика загрузки с диска

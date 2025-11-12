@@ -12,7 +12,7 @@ namespace Shop.Bundle.Data
     public class BundleData : ScriptableObject
     {
         [Header("UI")]
-        [SerializeField] public string bundleName;
+        [SerializeField] public string bundleTitile;
         
         [Space(10)]
         [Header("Cost — что игрок ТРАТИТ при покупке")]

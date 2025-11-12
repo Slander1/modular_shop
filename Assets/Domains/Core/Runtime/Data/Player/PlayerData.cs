@@ -44,6 +44,11 @@ namespace Core.Data.Player
             stat.ReplaceValue(stat.DefaultValue);
             _dataChanged?.Invoke();
         }
+
+        public bool IsSatisfied<TKey, T>(T value) where TKey : class, ITypedPlayerStat<T>, new()
+        {
+            return EnsureStat<TKey, T>().IsSatisfied(value);
+        }
         
         private ITypedPlayerStat<T> EnsureStat<TKey, T>() where TKey : class, ITypedPlayerStat<T>, new()
         {
