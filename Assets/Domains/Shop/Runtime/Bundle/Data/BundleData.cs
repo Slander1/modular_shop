@@ -1,3 +1,4 @@
+using Core.Data.Bundle.BundleBrick.ChangeData;
 using Core.Data.Bundle.BundleBrick.Cost;
 using Core.Data.Bundle.BundleBrick.Reward;
 using UnityEngine;
@@ -19,11 +20,11 @@ namespace Shop.Bundle.Data
         
         
         [Space(10)]
-        [Header("Reward — что игрок ПОЛУЧАЕТ при покупке")]
+        [Header("Reward — что игрок ПОЛУЧАЕТ после покупки")]
         [SerializeField] public RewardBrickBase[] rewardBricks;
 
-        // [Space(10)]
-        // [Header("Reward — что игрок ПОЛУЧАЕТ после покупки")]
-        // [SerializeField]  public BundleBrick[] rewardBricks;
+        [Space(10)]
+        [Header("Changable Data — что меняется после покупки")]
+        [SerializeField]  public DataChangeableBrickBase[] changeableBricks;
     }
 }

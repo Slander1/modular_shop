@@ -16,4 +16,6 @@ MonoBehaviour:
   costBricks:
   - {fileID: 11400000, guid: 1720da7f24e28467e85bcf84d9e07c73, type: 2}
   rewardBricks:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 6c097e0a4ee254808802f970be057803, type: 2}
+  changeableBricks:
+  - {fileID: 11400000, guid: 413ee39e14347401a811a42bfbc13655, type: 2}
