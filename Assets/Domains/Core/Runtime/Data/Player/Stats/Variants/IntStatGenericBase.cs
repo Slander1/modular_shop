@@ -6,14 +6,14 @@ namespace Core.Data.Player.Stats.Variants
     {
         public override void UpdateValue(int changeValueOn)
         {
-            var updatedValue = CurrentValue + changeValueOn;
+            var updatedValue = Value + changeValueOn;
             if (updatedValue < 0) throw new ArgumentException("Value must be greater than or equal to 0 after UpdateValue");
-            CurrentValue += changeValueOn;
+            Value += changeValueOn;
         }
 
         public override bool IsSatisfied(int value)
         {
-            return CurrentValue >= value;
+            return Value >= value;
         }
     }
 }

@@ -1,66 +1,72 @@
 using System;
 using System.Collections.Generic;
+using Core.Data.Base;
 using Core.Data.Player.Stats;
 using Core.Utility;
 
 namespace Core.Data.Player
 {
-    //TODO : DataBase и наследоваться от него
+    // TODO: DataBase и наследоваться от него при необходимости
     public sealed class PlayerData : SingletonBase<PlayerData>
     {
-        //TODO : передача лямда метода и подписка каждого
-        
-        public event Action DataChanged
-        {
-            add
-            {
-                _dataChanged += value;
-                value?.Invoke();
-            }
-            remove => _dataChanged -= value;
-        }
-        
-        private readonly Dictionary<Type, IPlayerStatMarker> _dataStorage = new();
-        
-        private event Action _dataChanged;
-        
+        private readonly PlayerStatEventHub _eventHub = new();
+
+        private readonly Dictionary<Type, IGameStatMarker> _dataStorage = new();
+
         public T GetValue<TKey, T>() where TKey : class, ITypedPlayerStat<T>, new()
         {
-            return EnsureStat<TKey, T>().CurrentValue;
+            return EnsureStat<TKey, T>().Value;
         }
 
-        public void ReplaceValue<TKey, T>(T newValue) where TKey : class, ITypedPlayerStat<T>, new()
+        public bool TryGetValue<TKey, T>(out T value)
+            where TKey : class, ITypedPlayerStat<T>, new()
         {
-            EnsureStat<TKey, T>().ReplaceValue(newValue);
-            _dataChanged?.Invoke();
-        }
-        
-        public void UpdateValue<TKey, T>(T updateOn) where TKey : class, ITypedPlayerStat<T>, new()
-        {
-            EnsureStat<TKey, T>().UpdateValue(updateOn);
-            _dataChanged?.Invoke();
+            if (_dataStorage.TryGetValue(typeof(TKey), out var boxed))
+            {
+                value = ((ITypedPlayerStat<T>)boxed).Value;
+                return true;
+            }
+            value = default!;
+            return false;
         }
 
-        public void ResetToDefault<TKey, T>() where TKey : class, ITypedPlayerStat<T>, new()
+        public void ReplaceValue<TKey, T>(T newValue)
+            where TKey : class, ITypedPlayerStat<T>, new()
         {
             var stat = EnsureStat<TKey, T>();
-            stat.ReplaceValue(stat.DefaultValue);
-            _dataChanged?.Invoke();
-        }
-
-        public bool IsSatisfied<TKey, T>(T value) where TKey : class, ITypedPlayerStat<T>, new()
-        {
-            return EnsureStat<TKey, T>().IsSatisfied(value);
+            stat.ReplaceValue(newValue);
+            _eventHub.Notify<TKey, T>(stat.Value);
         }
         
-        private ITypedPlayerStat<T> EnsureStat<TKey, T>() where TKey : class, ITypedPlayerStat<T>, new()
+        public void UpdateValue<TKey, T>(T updateOn)
+            where TKey : class, ITypedPlayerStat<T>, new()
+        {
+            var stat = EnsureStat<TKey, T>();
+            stat.UpdateValue(updateOn);
+            _eventHub.Notify<TKey, T>(stat.Value);
+        }
+
+        public void Subscribe<TKey, T>(Action<T> listener, bool invokeImmediately = true) where TKey : class, ITypedPlayerStat<T>, new()
+        {
+            _eventHub.Subscribe<TKey, T>(listener);
+            if (invokeImmediately)
+                listener?.Invoke(GetValue<TKey, T>());
+        }
+
+        public void Unsubscribe<TKey, T>(Action<T> listener) where TKey : class, ITypedPlayerStat<T>, new()
+        {
+            _eventHub.Unsubscribe<TKey, T>(listener);
+        }
+
+        private ITypedPlayerStat<T> EnsureStat<TKey, T>()
+            where TKey : class, ITypedPlayerStat<T>, new()
         {
             var key = typeof(TKey);
-            if (_dataStorage.TryGetValue(key, out var boxed)) return (ITypedPlayerStat<T>)boxed;
+            if (_dataStorage.TryGetValue(key, out var boxed))
+                return (ITypedPlayerStat<T>)boxed;
 
             var stat = new TKey();
             _dataStorage[key] = stat;
-
             return stat;
         }
     }
