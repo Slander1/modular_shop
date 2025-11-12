@@ -12,12 +12,12 @@ namespace Core.Data.Bundle.BundleBrick.Cost
         
         public override void Subscribe()
         {
-            CashedDataStorage.Subscribe<TKey, T>(OnPlayerStatChanged);
+            CachedDataStorage.Subscribe<TKey, T>(OnPlayerStatChanged);
         }
         
         public override void Unsubscribe()
         {
-            CashedDataStorage.Unsubscribe<TKey, T>(OnPlayerStatChanged);
+            CachedDataStorage.Unsubscribe<TKey, T>(OnPlayerStatChanged);
         }
         
         protected void OnPlayerStatChanged(T newValue)

@@ -5,15 +5,6 @@ using UnityEngine;
 namespace Gold.Data.Scriptable
 {
     [CreateAssetMenu(menuName = "Stats/Gold/Add Fixed", fileName = "GoldAddFixed")]
-    public sealed class GoldAddFixed : TypedRewardBrickBase<GoldAmount, int>
-    {
-        public override int Amount => goldToAdd;
-        
-        [SerializeField] private int goldToAdd;
-        
-        public override void GiveReward()
-        {
-            CashedDataStorage.UpdateValue<GoldAmount, int>(Amount);
-        }
-    }
+    public sealed class GoldAddFixed : AddFixedIntRewardBrick<GoldAmount>
+    { }
 }

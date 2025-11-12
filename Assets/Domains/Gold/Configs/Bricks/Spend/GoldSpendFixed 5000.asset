@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f560525431644d32b7c4b3159bf8764f, type: 3}
   m_Name: GoldSpendFixed 5000
   m_EditorClassIdentifier: 
-  goldToSpend: 5000
+  amountToSpend: 5000

@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdecadf7029743d89f7e1e8f2956df00, type: 3}
-  m_Name: GoldAddFixed
+  m_Script: {fileID: 11500000, guid: 2c301752f234404f94a3a4d69063397e, type: 3}
+  m_Name: VIPAddFixed 30
   m_EditorClassIdentifier: 
-  goldToAdd: 1000
+  amountToAdd: 30

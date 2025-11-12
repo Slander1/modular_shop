@@ -5,11 +5,11 @@ namespace Core.Data.Bundle.BundleBrick
 {
     public abstract class BrickBase : StatKey
     {
-        protected IDataStorage CashedDataStorage;
+        protected IDataStorage CachedDataStorage;
  
         public void Construct(IDataStorage storage)
         {
-            CashedDataStorage = storage;
+            CachedDataStorage = storage;
         }
     }
 }

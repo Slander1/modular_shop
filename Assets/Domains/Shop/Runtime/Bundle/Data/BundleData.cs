@@ -1,11 +1,14 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using Core.Data.Bundle.BundleBrick;
 using Core.Data.Bundle.BundleBrick.ChangeData;
 using Core.Data.Bundle.BundleBrick.Cost;
 using Core.Data.Bundle.BundleBrick.Reward;
 using Core.Data.Player;
 using Core.Scenes;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Shop.Bundle.Data
 {
@@ -18,7 +21,7 @@ namespace Shop.Bundle.Data
         public event Action CostPlayerDataChanged;
         
         [Header("UI")]
-        [SerializeField] public string bundleTitile;
+        [SerializeField] public string bundleTitle;
         
         [Space(10)]
         [Header("Cost — что игрок ТРАТИТ при покупке")]
@@ -31,6 +34,53 @@ namespace Shop.Bundle.Data
         [Space(10)]
         [Header("Changable Data — что меняется после покупки")]
         [SerializeField]  public DataChangeableBrickBase[] changeableBricks;
+
+
+#if UNITY_EDITOR
+
+        #region === Unity Events ===
+        
+        private void OnValidate()
+        {
+            costBricks = RemoveDuplicatesByStatType(costBricks);
+            rewardBricks = RemoveDuplicatesByStatType(rewardBricks);
+            changeableBricks = RemoveDuplicatesByStatType(changeableBricks);
+        }
+        
+        #endregion === Unity Events ===
+        
+        
+        private T[] RemoveDuplicatesByStatType<T>(T[] bricks) where T : BrickBase
+        {
+            if (bricks == null)
+                return null;
+
+            var seen = new HashSet<Type>();
+            var result = new List<T>();
+
+            foreach (var brick in bricks)
+            {
+                if (brick == null)
+                {
+                    result.Add(null);
+                    continue;
+                }
+
+                var statType = brick.StatType;
+                if (seen.Add(statType))
+                {
+                    result.Add(brick);
+                }
+                else
+                {
+                    result.Add(null);
+                    Debug.LogWarning($"Stat type {statType} is already used by another brick");
+                }
+            }
+
+            return result.ToArray();
+        }
+#endif
 
         public void Construct()
         {

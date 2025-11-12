@@ -20,7 +20,7 @@ namespace Shop.Scenes.Base.UI.ShopItem
         {
             BundleData = bundleData;
             BundleData.Construct();
-            textPanelBase.UpdateText(bundleData.bundleTitile);
+            textPanelBase.UpdateText(bundleData.bundleTitle);
             
             InitializeData();
         }

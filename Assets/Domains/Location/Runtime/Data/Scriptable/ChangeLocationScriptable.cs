@@ -13,7 +13,7 @@ namespace Location.Data.Scriptable
         
         public override void ChangeData()
         {
-            CashedDataStorage.ReplaceValue<Location, string>(Value);
+            CachedDataStorage.ReplaceValue<Location, string>(Value);
         }
     }
 }
