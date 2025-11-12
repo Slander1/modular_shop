@@ -13,13 +13,13 @@ namespace Gold.Data.Scriptable
         
         public override bool CanPurchase()
         {
-            var value = PlayerData.Instance.GetValue<GoldAmount, int>();
+            var value = CashedDataStorage.GetValue<GoldAmount, int>();
             return value >= Amount;
         }
 
         public override void ExecutePurchase()
         {
-            PlayerData.Instance.UpdateValue<GoldAmount, int>(-1 * Amount);
+            CashedDataStorage.UpdateValue<GoldAmount, int>(-1 * Amount);
         }
     }
 }

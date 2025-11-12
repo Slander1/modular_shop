@@ -40,6 +40,16 @@ namespace Shop.Bundle.Data
             {
                 brick.Construct(dataStorage);
             }
+            
+            foreach (var rewardBrickBase in rewardBricks)
+            {
+                rewardBrickBase.Construct(dataStorage);
+            }
+            
+            foreach (var changeableBrick in changeableBricks)
+            {
+                changeableBrick.Construct(dataStorage);
+            }
         }
         
         public bool CanPurchase()

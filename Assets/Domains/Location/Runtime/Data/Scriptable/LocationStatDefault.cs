@@ -10,9 +10,9 @@ namespace Location.Data.Scriptable
         public override string Value => defaultLocation;
         [SerializeField] private string defaultLocation;
         
-        public override void UpdatePlayerData()
+        public override void UpdatePlayerData(IDataStorage dataStorage)
         {
-            PlayerData.Instance.ReplaceValue<Location, string>(Value);
+            dataStorage.ReplaceValue<Location, string>(Value);
         }
     }
 }

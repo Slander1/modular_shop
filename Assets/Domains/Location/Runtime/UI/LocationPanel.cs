@@ -13,7 +13,7 @@ namespace Location.UI
         [SerializeField] private LocationStatDefault locationStatDefault;
         [SerializeField] private ChangeLocationToDefaultButton changeLocationToDefaultButton;
 
-        private PlayerData _playerData;
+        private IDataStorage _playerData;
         
         private void Construct()
         {

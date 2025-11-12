@@ -7,13 +7,6 @@ namespace Core.Data.Bundle.BundleBrick.Cost
     {
         public event Action PlayerDataChanged;
         
-        protected IDataStorage CashedDataStorage;
-
-        public void Construct(IDataStorage storage)
-        {
-            CashedDataStorage = storage;
-        }
-        
         public abstract bool CanPurchase();
         public abstract void Subscribe();
         public abstract void Unsubscribe();

@@ -8,15 +8,15 @@ namespace Core.Utility.Player
     public abstract class MonoPlayerDataListenerBase<TKey, TValue> : MonoBehaviour 
         where TKey : class, ITypedPlayerStat<TValue>, new()
     {
-        protected PlayerData Data { get; private set; }
+        protected IDataStorage Data { get; private set; }
         
         private Action<TValue> _cachedListener;
 
         #region === Unity Events ===
-
+        
         protected virtual void Awake()
         {
-            Data = PlayerData.Instance;
+            Construct();
             _cachedListener = OnPlayerDataChanged;
         }
 
@@ -31,6 +31,11 @@ namespace Core.Utility.Player
         }
         
         #endregion === Unity Events ===
+
+        private void Construct()
+        {
+            Data = PlayerData.Instance;
+        }
         
         protected abstract void OnPlayerDataChanged(TValue newValue);
     }

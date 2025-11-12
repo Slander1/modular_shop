@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Gold.Data.Scriptable
 {
     [CreateAssetMenu(menuName = "Stats/Gold/Add Fixed", fileName = "GoldAddFixed")]
-    public sealed class GoldAddFixed :  TypedRewardBrickBase<GoldAmount, int>
+    public sealed class GoldAddFixed : TypedRewardBrickBase<GoldAmount, int>
     {
         public override int Amount => goldToAdd;
         
@@ -13,7 +13,7 @@ namespace Gold.Data.Scriptable
         
         public override void GiveReward()
         {
-            PlayerData.Instance.UpdateValue<GoldAmount, int>(Amount);
+            CashedDataStorage.UpdateValue<GoldAmount, int>(Amount);
         }
     }
 }

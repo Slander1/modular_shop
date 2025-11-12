@@ -4,6 +4,6 @@ namespace Core.Data.Player.Stats.DefaultValues
 {
     public abstract class UpdatableStatKey : StatKey
     {
-        public abstract void UpdatePlayerData();
+        public abstract void UpdatePlayerData(IDataStorage dataStorage);
     }
 }

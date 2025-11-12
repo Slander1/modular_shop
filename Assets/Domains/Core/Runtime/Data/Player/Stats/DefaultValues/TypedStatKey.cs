@@ -7,9 +7,9 @@ namespace Core.Data.Player.Stats.DefaultValues
         public override Type StatType => typeof(TKey);
         public abstract T Value { get; }
 
-        public override void UpdatePlayerData()
+        public override void UpdatePlayerData(IDataStorage dataStorage)
         {
-            PlayerData.Instance.ReplaceValue<TKey, T>(Value);
+            dataStorage.ReplaceValue<TKey, T>(Value);
         }
     }
 }

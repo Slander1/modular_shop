@@ -13,7 +13,7 @@ namespace Location.Data.Scriptable
         
         public override void ChangeData()
         {
-            PlayerData.Instance.ReplaceValue<Location, string>(Value);
+            CashedDataStorage.ReplaceValue<Location, string>(Value);
         }
     }
 }

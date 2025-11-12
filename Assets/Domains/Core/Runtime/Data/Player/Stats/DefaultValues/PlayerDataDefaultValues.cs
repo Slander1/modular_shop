@@ -10,7 +10,7 @@ namespace Core.Data.Player.Stats.DefaultValues
 
         public void FillPlayerDataDefaultValues(IDataStorage dataStorage)
         {
-            foreach (var key in statKeys) key.UpdatePlayerData();
+            foreach (var key in statKeys) key.UpdatePlayerData(dataStorage);
         }
     }
 }
