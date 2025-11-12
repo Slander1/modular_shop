@@ -1,12 +1,12 @@
 namespace Core.Data.Player.Stats
 {
-    public abstract class StatBase<T> : IPlayerStat<T>
+    public abstract class StatGenericBase<T> : ITypedPlayerStat<T>
     {
         public abstract T DefaultValue { get; }
 
         public T CurrentValue { get; protected set; }
 
-        protected StatBase()
+        protected StatGenericBase()
         {
             LoadDataSnapshotFromStorage();
         }

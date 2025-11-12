@@ -7,38 +7,48 @@ namespace Core.Data.Player
 {
     public sealed class PlayerData : SingletonBase<PlayerData>
     {
-        public event Action DataChanged;
-
-        private readonly Dictionary<Type, object> _dataStorage = new();
-
-        public T GetValue<TKey, T>() where TKey : class, IPlayerStat<T>, new()
+        public event Action DataChanged
+        {
+            add
+            {
+                _dataChanged += value;
+                value?.Invoke();
+            }
+            remove => _dataChanged -= value;
+        }
+        
+        private readonly Dictionary<Type, IPlayerStat> _dataStorage = new();
+        
+        private event Action _dataChanged;
+        
+        public T GetValue<TKey, T>() where TKey : class, ITypedPlayerStat<T>, new()
         {
             return EnsureStat<TKey, T>().CurrentValue;
         }
 
-        public void ReplaceValue<TKey, T>(T newValue) where TKey : class, IPlayerStat<T>, new()
+        public void ReplaceValue<TKey, T>(T newValue) where TKey : class, ITypedPlayerStat<T>, new()
         {
             EnsureStat<TKey, T>().ReplaceValue(newValue);
-            DataChanged?.Invoke();
+            _dataChanged?.Invoke();
         }
         
-        public void UpdateValue<TKey, T>(T updateOn) where TKey : class, IPlayerStat<T>, new()
+        public void UpdateValue<TKey, T>(T updateOn) where TKey : class, ITypedPlayerStat<T>, new()
         {
             EnsureStat<TKey, T>().UpdateValue(updateOn);
-            DataChanged?.Invoke();
+            _dataChanged?.Invoke();
         }
 
-        public void ResetToDefault<TKey, T>() where TKey : class, IPlayerStat<T>, new()
+        public void ResetToDefault<TKey, T>() where TKey : class, ITypedPlayerStat<T>, new()
         {
             var stat = EnsureStat<TKey, T>();
             stat.ReplaceValue(stat.DefaultValue);
-            DataChanged?.Invoke();
+            _dataChanged?.Invoke();
         }
         
-        private IPlayerStat<T> EnsureStat<TKey, T>() where TKey : class, IPlayerStat<T>, new()
+        private ITypedPlayerStat<T> EnsureStat<TKey, T>() where TKey : class, ITypedPlayerStat<T>, new()
         {
             var key = typeof(TKey);
-            if (_dataStorage.TryGetValue(key, out var boxed)) return (IPlayerStat<T>)boxed;
+            if (_dataStorage.TryGetValue(key, out var boxed)) return (ITypedPlayerStat<T>)boxed;
 
             var stat = new TKey();
             _dataStorage[key] = stat;

@@ -2,7 +2,7 @@ using System;
 
 namespace Core.Data.Player.Stats.Variants
 {
-    public abstract class IntStatBase : StatBase<int>
+    public abstract class IntStatGenericBase : StatGenericBase<int>
     {
         public override void UpdateValue(int changeValueOn)
         {
