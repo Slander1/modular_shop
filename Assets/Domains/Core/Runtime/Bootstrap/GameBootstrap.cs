@@ -7,6 +7,7 @@ namespace Core.Bootstrap
     public sealed class GameBootstrap : MonoBehaviour
     {
         [SerializeField] private ScenesCatalog scenesCatalog;
+        
         #region === Unity Events ===
 
         private void Awake()

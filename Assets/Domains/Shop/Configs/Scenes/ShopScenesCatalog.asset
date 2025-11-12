@@ -16,7 +16,5 @@ MonoBehaviour:
   scenes:
   - priority: 1
     sceneAsset: {fileID: 102900000, guid: 2cda990e2423bbf4892e6590ba056729, type: 3}
-    sceneName: Shop Scene
   - priority: 2
     sceneAsset: {fileID: 102900000, guid: 5b469c2a4b286444e9797993258131b9, type: 3}
-    sceneName: Shop Bundle View Scene

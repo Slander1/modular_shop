@@ -25,24 +25,6 @@ namespace Core.Scenes
                 _catalogs.Add(catalog.GetType(), catalog);
             }
         }
-        
-        /// <summary>
-        /// Логика координатора заложена простейшая, не продуманная,
-        /// потому что согласно ТЗ пункта такого нет.
-        /// </summary>
-        /// <returns></returns>
-        private SceneReference PickStartup()
-        {
-            if (_catalogs.Count == 0) throw new ArgumentException("Catalogs have not been constructed");
-
-            var firstDomain = _catalogs.Values
-                .OrderBy(d => d.domainPriorityAsStartScene)
-                .First();
-
-            var firstScene = firstDomain.scenes.OrderBy(d => d.priority).First();
-            
-            return firstScene;
-        }
 
         public UniTask LoadStartSceneAsync()
         {
@@ -92,6 +74,25 @@ namespace Core.Scenes
 
             var unloadOp = SceneManager.UnloadSceneAsync(scene);
             await unloadOp.ToUniTask();
+        }
+        
+        
+        /// <summary>
+        /// Логика координатора заложена простейшая, не продуманная,
+        /// потому что согласно ТЗ пункта такого нет.
+        /// </summary>
+        /// <returns></returns>
+        private SceneReference PickStartup()
+        {
+            if (_catalogs.Count == 0) throw new ArgumentException("Catalogs have not been constructed");
+
+            var firstDomain = _catalogs.Values
+                .OrderBy(d => d.domainPriorityAsStartScene)
+                .First();
+
+            var firstScene = firstDomain.scenes.OrderBy(d => d.priority).First();
+            
+            return firstScene;
         }
     }
 }

@@ -1,6 +1,6 @@
 using Core.Data.Player;
 
-namespace Shop.Data
+namespace Location.Data
 {
     public class DataKeys
     {
