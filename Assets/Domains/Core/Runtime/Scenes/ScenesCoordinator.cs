@@ -69,8 +69,8 @@ namespace Core.Scenes
             var gameScene = FindGameSceneObj(loadedScene);
             gameScene.Construct(sceneLoadData);
         }
-        
-        public static GameScene FindGameSceneObj(Scene scene, bool includeInactive = false)
+
+        private static GameScene FindGameSceneObj(Scene scene, bool includeInactive = false)
         {
             if (!scene.isLoaded)
                 throw new InvalidOperationException($"Scene '{scene.name}' is not loaded.");

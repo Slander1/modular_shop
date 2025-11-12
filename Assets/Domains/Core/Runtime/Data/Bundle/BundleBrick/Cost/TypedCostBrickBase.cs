@@ -1,5 +1,4 @@
 using System;
-using Core.Data.Player;
 using Core.Data.Player.Stats;
 
 namespace Core.Data.Bundle.BundleBrick.Cost

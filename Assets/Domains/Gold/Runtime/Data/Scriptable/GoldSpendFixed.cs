@@ -1,5 +1,4 @@
 using Core.Data.Bundle.BundleBrick.Cost;
-using Core.Data.Player;
 using UnityEngine;
 
 namespace Gold.Data.Scriptable

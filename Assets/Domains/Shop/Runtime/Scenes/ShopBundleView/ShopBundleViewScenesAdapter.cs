@@ -1,4 +1,3 @@
-using System.Linq;
 using Core.Scenes;
 using Core.Scenes.Data;
 using Cysharp.Threading.Tasks;

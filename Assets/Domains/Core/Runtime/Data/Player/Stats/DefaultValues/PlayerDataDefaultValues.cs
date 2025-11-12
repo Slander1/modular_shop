@@ -1,4 +1,3 @@
-using Core.Data.Base;
 using UnityEngine;
 
 namespace Core.Data.Player.Stats.DefaultValues

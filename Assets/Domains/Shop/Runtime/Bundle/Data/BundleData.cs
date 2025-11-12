@@ -8,7 +8,6 @@ using Core.Data.Bundle.BundleBrick.Reward;
 using Core.Data.Player;
 using Core.Scenes;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Shop.Bundle.Data
 {

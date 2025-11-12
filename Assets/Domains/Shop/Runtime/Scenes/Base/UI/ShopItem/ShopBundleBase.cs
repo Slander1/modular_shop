@@ -1,4 +1,3 @@
-using System;
 using Shop.Bundle.Data;
 using Shop.Scenes.Base.UI.ShopItem.Buttons;
 using Shop.Scenes.ShopFront.ShopItem.Text;

@@ -1,5 +1,4 @@
 using Core.Data.Bundle.BundleBrick.ChangeData;
-using Core.Data.Player;
 using UnityEngine;
 
 namespace Location.Data.Scriptable

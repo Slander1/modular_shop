@@ -1,4 +1,3 @@
-using Core.Data.Player;
 using UnityEngine;
 
 namespace Core.Data.Base

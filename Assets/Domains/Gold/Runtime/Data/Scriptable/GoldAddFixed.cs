@@ -1,5 +1,4 @@
 using Core.Data.Bundle.BundleBrick.Reward;
-using Core.Data.Player;
 using UnityEngine;
 
 namespace Gold.Data.Scriptable

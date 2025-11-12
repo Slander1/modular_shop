@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Threading;
-using Core.Network;
 using Cysharp.Threading.Tasks;
 using Shop.Bundle.Data;
 using Shop.Scenes.Base;
