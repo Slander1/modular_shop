@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bundles:
   - {fileID: 11400000, guid: f67c6e1319c114606b85d8c242a173c8, type: 2}
+  - {fileID: 11400000, guid: 75baddbc7d09549f3a90f4c548b19e3a, type: 2}
+  - {fileID: 11400000, guid: 7ffb3cda394bd4edbab235cd136511cc, type: 2}
+  - {fileID: 11400000, guid: 89f5f0101648d4ae087eaf5561540a58, type: 2}
+  - {fileID: 11400000, guid: ccdcfddc262d341a4809bc754945b6bc, type: 2}

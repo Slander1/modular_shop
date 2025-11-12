@@ -8,5 +8,7 @@ namespace Core.Data.Bundle.BundleBrick.Cost
     { 
         public T amount;
         public override Type StatType => typeof(TKey);
+        
+        public abstract bool CanPurchase(T playerDataValue);
     }
 }

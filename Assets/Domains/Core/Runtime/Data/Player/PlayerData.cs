@@ -17,7 +17,7 @@ namespace Core.Data.Player
             remove => _dataChanged -= value;
         }
         
-        private readonly Dictionary<Type, IPlayerStat> _dataStorage = new();
+        private readonly Dictionary<Type, IPlayerStatMarker> _dataStorage = new();
         
         private event Action _dataChanged;
         

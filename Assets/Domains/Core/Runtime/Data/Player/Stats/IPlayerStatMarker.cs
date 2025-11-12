@@ -1,5 +1,5 @@
 namespace Core.Data.Player.Stats
 {
-    public interface IPlayerStat
+    public interface IPlayerStatMarker
     { }
 }
