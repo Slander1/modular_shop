@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Core.Data.Player;
 using Cysharp.Threading.Tasks;
+using Shop.Bundle;
 using Shop.Bundle.Data;
 using Shop.Scenes.Base;
 using Shop.Scenes.ShopFront.ShopItem;
@@ -18,9 +20,9 @@ namespace Shop.Scenes.ShopFront.UI
 
         private readonly ServerApiAdapter _serverApi = new();
         
-        public void Construct(BundlesData bundles, ShopFrontScenesAdapter scenesAdapter)
+        public void Construct(BundlesData bundles, IDataStorage dataStorage, ShopFrontScenesAdapter scenesAdapter)
         {
-            _bundles = BundlesCreator.CreateAndInitBundles(bundlesContainer, shopBundle, bundles);
+            _bundles = BundlesCreator.CreateAndInitBundles(bundlesContainer, shopBundle, bundles, dataStorage);
             _scenesAdapter = scenesAdapter;
             SubscribeOnBundleEvents();
         }
@@ -60,12 +62,12 @@ namespace Shop.Scenes.ShopFront.UI
             _scenesAdapter.OnBundleInfoClick(bundleData);
         }
         
-        private void BundleOnBuyButtonClicked(BundleData bundleData, ShopBundle bundle)
+        private void BundleOnBuyButtonClicked(IBundleRuntime bundleData, ShopBundle bundle)
         {
             InitializePurchase(bundleData, bundle).Forget();
         }
 
-        private async UniTaskVoid InitializePurchase(BundleData bundleData, ShopBundle bundle)
+        private async UniTaskVoid InitializePurchase(IBundleRuntime bundleData, ShopBundle bundle)
         {
             bundle.OnServerPurchaseStateChange(true);
 

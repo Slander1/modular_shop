@@ -1,3 +1,4 @@
+using Core.Data.Player;
 using Core.Scenes;
 using Shop.Bundle.Data;
 using Shop.Scenes.ShopFront.UI;
@@ -28,7 +29,7 @@ namespace Shop.Scenes.ShopFront
         private void Initialize()
         {
             _scenesAdapter = new ShopFrontScenesAdapter(ScenesCoordinator.Instance);
-            shopFrontBundlesController.Construct(bundles, _scenesAdapter);
+            shopFrontBundlesController.Construct(bundles, PlayerData.Instance, _scenesAdapter);
         }
     }
 }
