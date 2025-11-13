@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Shop.Bundle.Data;
@@ -59,22 +60,25 @@ namespace Shop.Scenes.ShopFront.UI
             _scenesAdapter.OnBundleInfoClick(bundleData);
         }
         
-        private void BundleOnBuyButtonClicked(BundleData bundleData)
+        private void BundleOnBuyButtonClicked(BundleData bundleData, ShopBundle bundle)
         {
-            InitializePurchase(bundleData).Forget();
+            InitializePurchase(bundleData, bundle).Forget();
         }
 
-        private async UniTaskVoid InitializePurchase(BundleData bundleData)
+        private async UniTaskVoid InitializePurchase(BundleData bundleData, ShopBundle bundle)
         {
-            foreach (var bundle in _bundles)
-            {
-                bundle.OnServerPurchaseStateChange(true);
-            }
+            bundle.OnServerPurchaseStateChange(true);
 
             await _serverApi.InitializePurchase(bundleData);
-            bundleData.Purchase();
-            
-            foreach (var bundle in _bundles)
+            try
+            {
+                bundleData.Purchase();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+            }
+            finally
             {
                 bundle.OnServerPurchaseStateChange(false);
             }
