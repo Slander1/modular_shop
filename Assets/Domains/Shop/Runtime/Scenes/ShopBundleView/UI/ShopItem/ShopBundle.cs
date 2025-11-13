@@ -13,17 +13,17 @@ namespace Shop.Scenes.ShopBundleView.UI.ShopItem
         
         protected override void BuyButtonOnClicked()
         {
-            InitializePurchase(BundleData).Forget();
+            InitializePurchase().Forget();
         }
         
-        private async UniTaskVoid InitializePurchase(BundleData bundleData)
+        private async UniTaskVoid InitializePurchase()
         {
             OnServerPurchaseStateChange(true);
 
-            await _serverApi.InitializePurchase(bundleData);
+            await _serverApi.InitializePurchase(BundleRuntime);
             try
             {
-                bundleData.Purchase();
+                BundleRuntime.Purchase();
             }
             catch (Exception e)
             {

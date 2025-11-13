@@ -1,4 +1,5 @@
 using System;
+using Core.Data.Player;
 using Core.Scenes;
 using Shop.Bundle.Data;
 using Shop.Scenes.ShopBundleView.UI.ShopItem;
@@ -27,8 +28,8 @@ namespace Shop.Scenes.ShopBundleView
         {
             if (dataMarker is not BundleData bundleData)
                 throw new ArgumentException("Data marker type is not BundleData");
-            
-            shopBundle.Construct(bundleData);
+            var dataStorage = PlayerData.Instance;
+            shopBundle.Construct(bundleData, dataStorage);
         }
         
         private void Initialize()

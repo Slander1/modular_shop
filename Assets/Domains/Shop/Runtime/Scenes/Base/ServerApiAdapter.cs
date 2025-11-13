@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using Core.Network;
 using Cysharp.Threading.Tasks;
+using Shop.Bundle;
 using Shop.Bundle.Data;
 
 namespace Shop.Scenes.Base
@@ -12,7 +13,7 @@ namespace Shop.Scenes.Base
 
         private CancellationTokenSource _cancellationToken;
 
-        public async UniTask InitializePurchase(BundleData bundleData)
+        public async UniTask InitializePurchase(IBundleRuntime bundleData)
         {
             DisposeToken();
             _cancellationToken = new CancellationTokenSource();
