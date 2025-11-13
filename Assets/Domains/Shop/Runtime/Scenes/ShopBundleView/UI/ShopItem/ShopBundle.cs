@@ -1,7 +1,9 @@
+using System;
 using Cysharp.Threading.Tasks;
 using Shop.Bundle.Data;
 using Shop.Scenes.Base;
 using Shop.Scenes.Base.UI.ShopItem;
+using UnityEngine;
 
 namespace Shop.Scenes.ShopBundleView.UI.ShopItem
 {
@@ -19,9 +21,18 @@ namespace Shop.Scenes.ShopBundleView.UI.ShopItem
             OnServerPurchaseStateChange(true);
 
             await _serverApi.InitializePurchase(bundleData);
-            bundleData.Purchase();
-            
-            OnServerPurchaseStateChange(false);
+            try
+            {
+                bundleData.Purchase();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+            }
+            finally
+            {
+                OnServerPurchaseStateChange(false);
+            }
         }
     }
 }

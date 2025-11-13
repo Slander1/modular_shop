@@ -8,7 +8,7 @@ namespace Shop.Scenes.ShopFront.ShopItem
 {
     public sealed class ShopBundle : ShopBundleBase
     {
-        public event Action<BundleData> BuyButtonClicked;
+        public event Action<BundleData, ShopBundle> BuyButtonClicked;
         public event Action<BundleData> InfoButtonClicked;
         
         [SerializeField] private InfoEventButton infoButton;
@@ -38,7 +38,7 @@ namespace Shop.Scenes.ShopFront.ShopItem
         protected override void BuyButtonOnClicked()
         {
             if (IsServerPurchaseAwait) return;
-            BuyButtonClicked?.Invoke(BundleData);
+            BuyButtonClicked?.Invoke(BundleData, this);
         }
     }
 }
